@@ -69,3 +69,8 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000). Admin sign-in is at `/admin/login`.
 
 **Never commit credentials, production environment files, student-data backups, or private student information to Git.**
+
+
+---
+
+README order refresh: October 2026.
