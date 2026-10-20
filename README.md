@@ -1,44 +1,71 @@
-# AJM English School — full Next.js project
+# AJM English School — School Website & Administration Workspace
 
-A premium Next.js 15 / React 19 / TypeScript school website and authenticated administration workspace.
+> A full-stack school website designed to bring public information, academic resources, and day-to-day administrative tools into one application.
 
-## Run locally (Windows PowerShell)
+🌐 **Website:** [ajmenglishschool.in](https://ajmenglishschool.in)  
+🧪 **Deployment note:** The domain has previously shown a browser security warning. Verify current availability and clear any warning before treating it as a trusted live demo.
+
+## Overview
+
+AJM English School combines a public-facing school website with an authenticated administration workspace. The public experience helps families find school information, academics, exam schedules, results, toppers, fees, and gallery content. The admin workspace supports the staff workflows behind student records and academic publishing.
+
+## Key features
+
+### Public website
+- School landing page with campus imagery, animated hero, quick-access cards, school values, and contact information.
+- Dedicated pages for academics, exam dates, results, toppers, fees, and gallery.
+- Public result lookup by class and roll number.
+- Printable marksheet view with class, roll number, and date-of-birth verification.
+
+### Admin workspace
+- Student directory for Classes 1–10.
+- Create, edit, and delete student records.
+- Manage admission details, date of birth, remarks, subject marks, unit-test totals, and ranks.
+- Automatically recalculate totals across six subjects for each unit test.
+- Preview and print student marksheets.
+- Edit class-wise exam schedules and fee data using CSV workflows.
+- Publish toppers, manage gallery uploads, and download data backups.
+
+## Why this project stands out
+
+- **End-to-end product thinking:** connects a public information experience with practical administrative workflows.
+- **Data-driven functionality:** student records, marks, totals, rankings, exam schedules, and result lookup.
+- **Privacy-aware design:** the documented public results endpoint uses an allow-list and avoids returning sensitive fields such as date of birth and admission number.
+- **Useful school operations:** printable marksheets, bulk data editing, gallery management, and backup downloads.
+- **Security considerations:** signed HTTP-only admin sessions and upload validation are documented.
+
+## Technology
+
+- Next.js 15
+- React 19
+- TypeScript
+- Node.js-compatible hosting
+- File-backed data workflows in the current implementation
+
+## Live and development status
+
+| Area | Status |
+|---|---|
+| Application | Implemented Next.js project |
+| Local development | Supported |
+| Public domain | Exists; current availability and browser security status need verification |
+| Production readiness | Requires security hardening and deployment verification |
+
+Before using this with real student data, add rate limiting to login and marksheet verification, review CSRF protections, protect backups, and consider transactional database storage for concurrent administrators. CSV fee management is not payment processing.
+
+## Run locally
+
 ```powershell
 npm install
 Copy-Item .env.example .env.local
-# Edit .env.local and set a strong private password and a random ADMIN_SESSION_SECRET of at least 32 characters.
+```
+
+Set a strong private admin password and a random `ADMIN_SESSION_SECRET` of at least 32 characters in `.env.local`, then run:
+
+```powershell
 npm run dev
 ```
-Open http://localhost:3000. Admin sign-in: http://localhost:3000/admin/login. Do not use the example credentials in production.
 
-## Public website
-- Premium homepage with school photos, animated hero, quick-access cards, campus, school values and contact section.
-- Academics, exam dates, results, toppers, fees and gallery pages.
-- Public results lookup by class and roll number.
-- Marksheets at `/marksheet`, protected by class, roll number and date-of-birth verification. Use **Print / Save PDF** in the browser to save a PDF.
-- Favicon and app icon generated from the school crest.
+Open [http://localhost:3000](http://localhost:3000). Admin sign-in is at `/admin/login`.
 
-## Admin workspace
-- Student directory and class selector (Classes 1–10).
-- Select an existing student by roll/name; add, edit or delete student records.
-- Edit admission, name, DOB, remarks, subject marks for UT1–UT4, unit totals and ranks.
-- Totals automatically recalculate from six subjects for each unit test.
-- Open the printable marksheet preview for a selected student.
-- Bulk edit/inspect legacy student JSON for uncommon custom fields.
-- Class-wise exam schedule CSV editor.
-- Toppers publishing editor.
-- Multi-image gallery uploads and delete controls.
-- Class-wise fee CSV editor.
-- Authenticated data backup download.
-
-## Important data/security notes
-- Private results, fee and exam data are stored in `data/`, not in `public/`.
-- The public results endpoint returns an allow-list of result fields and never returns DOB or admission number.
-- Marksheets require DOB verification. The DOB is not returned or printed.
-- Admin APIs use an HTTP-only signed session cookie and require `ADMIN_SESSION_SECRET`.
-- Uploaded gallery images are restricted by MIME type and file size. Review uploads before publication.
-- Fee CSV editing is not payment processing. Do not accept real payments until a complete server-side payment provider flow, webhook verification, receipts and reconciliation are implemented.
-- Data backups contain student data. Store them privately and do not commit them to Git.
-- Before production, add rate limiting to login and marksheet verification, CSRF protections where applicable, and a database/transactional storage if multiple administrators will write concurrently.
-- This project is a Next.js app and must be deployed to a compatible Node.js host, not as static PHP files.
-- A framework rebuild does not automatically clear a Google Safe Browsing warning. Review Search Console Security Issues and hosting files before requesting a review.
+**Never commit credentials, production environment files, student-data backups, or private student information to Git.**
